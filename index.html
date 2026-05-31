@@ -1,0 +1,186 @@
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Ishikaze</title>
+  </head>
+  <body>
+    <mdui-card id="loadingScreen" >
+        <h3 id="loadingText" style="margin-bottom: 1em;">Initializing...</h3>
+        <mdui-linear-progress></mdui-linear-progress>
+    </mdui-card>
+    
+    <mdui-card variant="filled" class="contentGroup">
+      <div class="verticalContainer" style="min-width: 368px;">
+        <div class="pfpGroup">
+            <div id="activity"></div>
+        </div>
+        <div class="bioGroup" style="margin-bottom: 1em;">
+          <h2>Hi, I'm Ishikaze.</h2>
+          <p>I guess I do stuff..?</p>
+        </div>
+        
+        <div class="time-container">
+          <div class="time-module-left">
+            <span class="time-label">My time</span>
+          </div>
+
+          <div class="time-module-right">
+            <span class="timezone-label">GMT+7</span>
+            <span id="live-clock" class="clock-display">00:00:00</span>
+          </div>
+        </div>
+        <div class="time-container" style="margin-bottom: 1em;">
+          <div class="time-module-left">
+            <span class="time-label">Language</span>
+          </div>
+
+          <div class="time-module-right">
+            <span class="timezone-label" style="opacity: 0;">GMT</span>
+            <span id="live-clock" class="clock-display" style="font-weight: 400;">Thai/English</span>
+          </div>
+        </div>
+
+        <div class="btnGroup">
+          <mdui-tooltip variant="rich" placement="bottom" content="My Discord Server">
+            <mdui-button-icon disabled variant="standard"><i class="fa-brands fa-discord"></i></mdui-button-icon>
+          </mdui-tooltip>
+          <mdui-tooltip variant="rich" placement="bottom">
+            <mdui-button-icon variant="standard" href="mailto:contact@ishikaze.space" target="_blank"><i class="fa-solid fa-envelope"></i></mdui-button-icon>
+            <div slot="headline">Send me an email</div>
+            <div slot="content">The button above is a mailto button, you can also copy my email below!</div>
+            <mdui-text-field label="Email" slot="action" type="text" readonly value="contact@ishikaze.space" id="emailInput" onmouseup="copyEmail()"></mdui-text-field>
+            <mdui-button slot="action" variant="text" id="emailCopyBtn">Copy</mdui-button>
+          </mdui-tooltip>
+          <mdui-tooltip variant="rich" placement="bottom" content="My YouTube Channel">
+            <mdui-button-icon variant="standard" href="https://www.youtube.com/@ishikazemusic" target="_blank"><i class="fa-brands fa-youtube"></i></mdui-button-icon>
+          </mdui-tooltip>
+          
+          <mdui-tooltip variant="rich" placement="bottom" content="My Insta">
+            <mdui-button-icon variant="standard" href="https://www.instagram.com/ishikaze/" target="_blank"><i class="fa-brands fa-instagram"></i></mdui-button-icon>
+          </mdui-tooltip>
+        </div>
+
+      </div>
+
+      <div class="verticalContainer" style="width: 100%; min-width: 0;">
+        <!-- <mdui-navigation-bar value="music" label-visibility="selected" style="position: relative; width: 100%; box-shadow: none; margin-bottom: 1em; max-width: 26em; border-radius: 3em;">
+          <mdui-navigation-bar-item value="music">
+            <i slot="icon" class="fa-solid fa-music"></i>
+            <i slot="active-icon" class="fa-solid fa-music"></i>
+            Music
+          </mdui-navigation-bar-item>
+           <mdui-navigation-bar-item value="projects">
+            <i slot="icon" class="fa-solid fa-diagram-project"></i>
+            <i slot="active-icon" class="fa-solid fa-diagram-project"></i>
+            Projects
+          </mdui-navigation-bar-item>
+          <mdui-navigation-bar-item value="misc">
+            <i slot="icon" class="fa-regular fa-circle-dot"></i>
+            <i slot="active-icon" class="fa-solid fa-circle-dot"></i>
+            Misc.
+          </mdui-navigation-bar-item>
+        </mdui-navigation-bar> -->
+
+        <mdui-tabs value="music" full-width style="width: 100%; background: transparent;">
+          <mdui-tab value="music">
+            Music
+            <i slot="icon" class="fa-solid fa-music"></i>
+            <i slot="active-icon" class="fa-solid fa-music"></i>
+          </mdui-tab>
+          <mdui-tab value="projects">
+            Stuff
+            <i slot="icon" class="fa-solid fa-diagram-project"></i>
+            <i slot="active-icon" class="fa-solid fa-diagram-project"></i>
+          </mdui-tab>
+          <mdui-tab value="misc">
+            Misc.
+            <i slot="icon" class="fa-regular fa-circle-dot"></i>
+            <i slot="active-icon" class="fa-solid fa-circle-dot"></i>
+          </mdui-tab>
+        </mdui-tabs>
+
+        <!-- Page Content Wrapper -->
+        <div id="pages-container" style="width: 100%; position: relative;">
+          
+          <!-- MUSIC PAGE -->
+          <div id="page-music" class="page-content active fade-in">
+            <!-- 1. Now Playing -->
+            <div id="now-playing" style="margin-bottom: 2em;"></div>
+            
+            <!-- 2. Recent Tracks -->
+            <div class="music-section-title">Recently listened to...</div>
+            <div id="recent-tracks" class="recent-tracks-grid"></div>
+            
+            <!-- 3 & 4. Top Tracks and Top Artists Grid -->
+            <div class="top-stats-grid">
+              <mdui-card variant="filled" class="stats-card">
+                <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Tracks</div>
+                <div id="top-tracks-list"></div>
+              </mdui-card>
+              
+              <mdui-card variant="filled" class="stats-card">
+                <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Artists</div>
+                <div id="top-artists-list"></div>
+              </mdui-card>
+            </div>
+
+            <mdui-button href="https://www.last.fm/user/Ishikaze" target="_blank" full-width variant="tonal" style="margin-top: 1.5em;">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <strong>See more on Last.fm</strong>
+            </mdui-button>
+          </div>
+
+          <!-- PROJECTS PAGE -->
+          <div id="page-projects" class="page-content">
+            <h1 style="margin-bottom: 0.5em; text-align: left;">My Stuff</h1>
+            <mdui-list>
+              <mdui-list-item href="https://github.com/ishikaze/" target="_blank">
+                <h3>My GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
+                <span slot="description">Check out my GitHub to see every project I worked or and am working on!</span>
+              </mdui-list-item>
+              <mdui-list-item href="./music/">
+                <h3>My Music</h3> 
+                <span slot="description">Did you know I make music? I primarily post on YouTube!</span>
+              </mdui-list-item>
+              <mdui-list-item>
+                <h3>That's it, for now...</h3> 
+                <span slot="description">I'll add more stuff I'm working on here!</span>
+              </mdui-list-item>
+
+            </mdui-list>
+          </div>
+
+          <!-- MISC PAGE -->
+          <div id="page-misc" class="page-content">
+            <h3>Site last updated on</h3>
+            <mdui-list>
+              <mdui-list-item>
+                <h4>31/5/2026</h4> 
+                <span slot="description"></span>
+              </mdui-list-item>
+              <mdui-list-item>
+                <div slot="custom" style="display: flex; flex-direction: column;">
+                  <img src="./imgs/the rats.jpg" style="width: 100%; aspect-ratio: 2/1; border-radius: 1em;">
+                  <span style="text-align: center; width: 100%;">rats jumpscare</span>
+                </div>
+              </mdui-list-item>
+            </mdui-list>
+          </div>
+
+        </div>
+      </div>
+    </mdui-card>
+
+    <script type="module" src="./scripts/init.js"></script>
+    <script type="module" src="./scripts/lanyard.js"></script>
+    <script type="module" src="./scripts/time.js"></script>
+    
+  </body>
+</html>
