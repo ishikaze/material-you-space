@@ -1,0 +1,576 @@
+@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+    margin: 0 auto;
+    width: 100%;
+    min-height: 100vh;
+    max-width: 1105px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    position: relative;
+    font-family: 'SN Pro', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 2em;
+}
+
+#loadingScreen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #202020;
+    z-index: 99999999;
+    border-radius: 0;
+}
+
+.contentGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin-top: 6em;
+    height: max-content; 
+    overflow: hidden;
+    min-width: 0; 
+    width: 100%;
+}
+
+#pages-container {
+    transition: height 0.2s ease;
+    position: relative;
+    will-change: height;
+}
+
+.verticalContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.time-container {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  opacity: 0.75;
+}
+
+.time-module-left {
+  display: flex;
+  align-items: center;
+}
+
+.time-label {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.time-module-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timezone-label {
+  font-size: 1rem;
+  opacity: 0.75;
+  font-weight: 300;
+}
+
+.clock-display {
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums; /* Keeps digit widths consistent */
+}
+
+p {
+    font-size: 1em;
+    text-align: center;
+}
+
+.pfpGroup {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+}
+
+#discordPfp {
+    width: 6em;
+    height: 6em;
+}
+
+.statusHolder {
+    position: absolute;
+    padding: 0.4em;
+    right: 0em;
+    bottom: 0em;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}
+
+#status {
+    background-color: #747F8D;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.bioGroup {
+    width: auto;
+}
+
+.btnGroup {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+mdui-card {
+    border-radius: 2em;
+    padding: 1em;
+    width: 100%;
+}
+
+mdui-button {
+    line-height: 1.1;
+}
+
+mdui-button i {
+    margin-right: 0.5em;
+}
+
+mdui-snackbar {
+    border-radius: 2em;
+    padding: 0.5em;
+    height: auto;
+    font-size: 1em
+}
+
+mdui-button-icon {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
+mdui-button-icon i {
+    font-size: 1em;
+}
+
+mdui-tabs {
+  margin-bottom: 1em;
+}
+
+mdui-tabs::part(container) {
+  background-color: transparent;
+  background: transparent;
+}
+
+mdui-list {
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+#lastfmGroup {
+  width: 100%;
+}
+
+.now-playing-banner {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.now-playing-banner p {
+    font-size: 1.25em;
+}
+
+.now-playing-banner img {
+    border-radius: 50%;
+    width: 8em;
+    height: 8em;
+    animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.video-card {
+  /* display: none; */
+  position: relative;
+  width: 100%;
+  padding: 1em;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  min-width: 0; 
+}
+
+.featured-video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 1.5em;
+  overflow: hidden;
+  margin: auto;
+}
+
+.featured-video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.featured-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--mdui-color-on-surface);
+}
+
+.featured-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--mdui-color-on-surface-variant);
+}
+
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #ff0000;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+}
+
+/* #latest-videos-track {
+  display: none;
+} */
+
+/* --- New Horizontal Scroll Track Styles --- */
+.horizontal-scroll-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: scroll;
+  padding-bottom: 0.75rem; /* Room for scrollbar */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: wrap;
+}
+
+/* Stylize the scrollbar to match Material UI feel */
+.horizontal-scroll-track::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+.horizontal-scroll-track::-webkit-scrollbar-thumb {
+  background-color: var(--mdui-color-outline-variant);
+  border-radius: 10px;
+}
+
+.video-item-card {
+  flex: 0 0 186px; /* Fixed width for each thumbnail block */
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.video-thumbnail-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  background: #000;
+}
+
+.video-thumbnail-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-thumbnail-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show play button on hover */
+.video-thumbnail-container:hover .video-thumbnail-overlay {
+  opacity: 1;
+}
+
+.video-item-title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--mdui-color-on-surface);
+  /* Truncate text after 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-item-date {
+  font-size: 0.7rem;
+  color: var(--mdui-color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* --- Page Transition System --- */
+.page-content {
+    width: 100%;
+    box-sizing: border-box; /* Add this */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.page-content.active {
+    display: block;
+}
+
+.page-content.fade-in {
+    opacity: 1;
+}
+
+/* --- Music Section Responsive Styling --- */
+.music-section-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.recent-tracks-grid {
+    display: flex;
+    gap: 1.25em;
+    margin-bottom: 2em;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.75em; /* Room for scrollbar */
+    -webkit-overflow-scrolling: touch;
+     width: 100%; 
+    box-sizing: border-box; 
+}
+
+.recent-tracks-grid::-webkit-scrollbar {
+    height: 6px;
+}
+.recent-tracks-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+.recent-tracks-grid::-webkit-scrollbar-thumb {
+    background-color: var(--mdui-color-outline-variant);
+    border-radius: 10px;
+}
+
+.recent-track-card {
+    flex: 0 0 110px; /* Fixed width to ensure uniform look across all screens */
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.recent-track-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.75em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.recent-track-card .track-title {
+    font-weight: 600;
+    font-size: 0.85em;
+    line-height: 1.2;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recent-track-card .track-artist {
+    font-size: 0.75em;
+    opacity: 0.7;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.2em;
+}
+
+.top-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5em;
+    margin-top: 1.5em;
+    align-items: start; /* Adds this to prevent the cards from stretching vertically */
+}
+
+.stats-card {
+    padding: 1.5em;
+    border-radius: 1.5em;
+}
+
+/* --- Top Stats Layout --- */
+.top-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0.5em;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+    margin-bottom: 0.5em;
+}
+
+.top-stat-item:hover {
+    background-color: var(--mdui-color-surface-variant);
+}
+
+.top-stat-rank {
+    font-weight: bold;
+    width: 24px;
+    text-align: center;
+    color: var(--mdui-color-primary);
+    font-size: 1.1em;
+}
+
+.top-stat-art {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.top-stat-text {
+    flex-grow: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.top-stat-title {
+    font-weight: 600;
+    font-size: 0.95em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    margin-bottom: 0.2em;
+}
+
+.top-stat-desc {
+    font-size: 0.8em;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+@media (max-width: 870px) {
+  .contentGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 6em;
+    height: max-content; 
+    overflow: hidden;
+    min-width: 0; 
+    width: 100%;
+  }
+
+  mdui-snackbar {
+    border-radius: 2em;
+    padding: 0.25em;
+    height: auto;
+    font-size: 0.8em
+  }
+
+  body {
+    margin: 0 auto;
+    width: 100%;
+    min-height: 100vh;
+    max-width: 1105px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    position: relative;
+    font-family: 'SN Pro', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 0.5em;
+  }
+}

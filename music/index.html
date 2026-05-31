@@ -1,0 +1,55 @@
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+        <meta name="renderer" content="webkit"/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+        <link rel="stylesheet" href="../style.css">
+
+        <title>Ishikaze</title>
+    </head>
+    <body>
+        <mdui-card id="loadingScreen" >
+            <h3 id="loadingText" style="margin-bottom: 1em;">Initializing...</h3>
+            <mdui-linear-progress></mdui-linear-progress>
+        </mdui-card>
+
+        <mdui-card variant="filled" class="contentGroup">
+            <div class="verticalContainer" style="min-width: 368px;">
+                <div class="pfpGroup">
+                    <div id="activity"></div>
+                </div>
+            </div>
+
+            <h2>Music links</h2>
+
+            <mdui-list>
+              <mdui-list-item href="https://www.youtube.com/@ishikazemusic" target="_blank">
+                <h3>YouTube Channel <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
+                <span slot="description">I mostly post on here before releases and there are a lot of unleased stuff on here.</span>
+              </mdui-list-item>
+              <mdui-list-item href="https://open.spotify.com/artist/6ormH2pMPFIJIP9vxnqvKE" target="_blank">
+                <h3>Spotify <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
+                <span slot="description"></span>
+              </mdui-list-item>
+              <mdui-list-item href="https://music.apple.com/us/artist/ishikaze/1602354539" target="_blank">
+                <h3>Apple music <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
+                <span slot="description"></span>
+              </mdui-list-item>
+              <mdui-list-item href="https://www.shazam.com/artist/ishikaze/1602354539" target="_blank">
+                <h3>Shazam <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
+                <span slot="description"></span>
+              </mdui-list-item>
+              <mdui-list-item href="../">
+                <h3><i class="fa-solid fa-arrow-left"></i> Go back</h3> 
+                <span slot="description"></span>
+              </mdui-list-item>
+            </mdui-list>
+        </mdui-card>
+
+        <script type="module" src="../scripts/init.js"></script>
+    </body>
+</html>
