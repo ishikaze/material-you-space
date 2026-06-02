@@ -213,10 +213,9 @@ mdui-list {
 }
 
 .now-playing-banner img {
-    border-radius: 50%;
+    border-radius: 1em;
     width: 8em;
     height: 8em;
-    animation: spin 10s linear infinite;
 }
 
 @keyframes spin {
@@ -414,14 +413,16 @@ mdui-list {
     margin-bottom: 2em;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding-bottom: 0.75em; /* Room for scrollbar */
+    padding-bottom: 0.75em; 
     -webkit-overflow-scrolling: touch;
-     width: 100%; 
+    width: 100%; 
     box-sizing: border-box; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
 }
 
 .recent-tracks-grid::-webkit-scrollbar {
-    height: 6px;
+    display: none;
 }
 .recent-tracks-grid::-webkit-scrollbar-track {
     background: transparent;
@@ -444,7 +445,7 @@ mdui-list {
 .recent-track-card img {
     width: 100%;
     aspect-ratio: 1;
-    border-radius: 50%;
+    border-radius: 1em;
     object-fit: cover;
     margin-bottom: 0.75em;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
