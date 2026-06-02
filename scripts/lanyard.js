@@ -1,6 +1,4 @@
-/**
- * Resolves external and rich presence asset images to valid URLs.
- */
+
 function getAssetImageUrl(applicationId, assetId) {
   if (!assetId) return null;
   
@@ -13,9 +11,6 @@ function getAssetImageUrl(applicationId, assetId) {
   return `https://cdn.discordapp.com/app-assets/${applicationId}/${assetId}.png`;
 }
 
-/**
- * Maps the activity type to specific prefix labels, Font Awesome icons, and text fields.
- */
 function getActivityDetails(activity) {
   const type = activity.type;
   let prefix = '';
@@ -70,9 +65,6 @@ function getActivityDetails(activity) {
   return { prefix, iconClass, title: `${emojiHtml}${title}`, subtitle, extra };
 }
 
-/**
- * Fetches data from Lanyard and renders/updates the animated profile card inside `#activity`.
- */
 async function updateLanyardActivity(userId) {
   const container = document.getElementById('activity');
   if (!container) return;
@@ -85,7 +77,6 @@ async function updateLanyardActivity(userId) {
 
     const { discord_user, discord_status, activities } = result.data;
 
-    // Online status color mappings
     const STATUS_COLORS = {
       online: '#23a55a',
       idle: '#f0b232',
@@ -107,7 +98,6 @@ async function updateLanyardActivity(userId) {
       const { prefix, iconClass, title, subtitle } = getActivityDetails(primaryActivity);
       const imageUrl = getAssetImageUrl(primaryActivity.application_id, primaryActivity.assets?.large_image);
 
-      // 1. Icon Badge - Uses <mdui-card> styled as a circle to inherit context matching background color
       badgeHtml = `
         <mdui-card class="status-badge activity-badge" variant="filled" style="
           --shape-corner: 50% !important;
@@ -131,7 +121,6 @@ async function updateLanyardActivity(userId) {
         </mdui-card>
       `;
 
-      // 2. Expandable Panel inner content
       detailsInnerHtml = `
         <div class="details-inner-content">
           ${imageUrl ? `
@@ -148,7 +137,6 @@ async function updateLanyardActivity(userId) {
         </div>
       `;
     } else {
-      // 3. Fallback standard status circle (when there are no activities)
       badgeHtml = `
         <mdui-card variant="filled" class="status-badge normal-status" style="
           padding: 0.4em;
@@ -172,7 +160,6 @@ async function updateLanyardActivity(userId) {
     let card = document.getElementById('activity-profile-card');
 
     if (!card) {
-      // INITIAL MOUNT: build the CSS wrapper and base elements
       container.innerHTML = `
         <style>
           #activity-profile-card {
@@ -280,26 +267,22 @@ async function updateLanyardActivity(userId) {
         </div>
       `;
     } else {
-      // SMART UPDATE: Keep the parent card wrapper to retain focus and cursor hover states
       if (hasActivityClass) {
         card.classList.add('has-activity');
       } else {
         card.classList.remove('has-activity');
       }
 
-      // Update avatar if changed
       const avatar = card.querySelector('mdui-avatar');
       if (avatar && avatar.getAttribute('src') !== avatarUrl) {
         avatar.setAttribute('src', avatarUrl);
       }
 
-      // Replace status badge inside pfp-wrapper
       const existingBadge = card.querySelector('.status-badge');
       if (existingBadge) {
         existingBadge.outerHTML = badgeHtml;
       }
 
-      // Update inner contents of details-wrapper
       const detailsWrapper = card.querySelector('.details-wrapper');
       if (detailsWrapper) {
         detailsWrapper.innerHTML = detailsInnerHtml;
@@ -309,16 +292,12 @@ async function updateLanyardActivity(userId) {
   } catch (error) {
     console.error('Error rendering Lanyard card:', error);
   } finally {
-    // Schedules the next update regardless of success or network failure
     setTimeout(() => {
       updateLanyardActivity(userId);
     }, 5000);
   }
 }
 
-/**
- * Resolves the Discord avatar URL based on user data.
- */
 function getAvatarUrl(user) {
   if (!user.avatar) {
     const index = user.discriminator === "0" 
@@ -331,5 +310,4 @@ function getAvatarUrl(user) {
   return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}`;
 }
 
-// Initial activation
 updateLanyardActivity('570470307748380673');

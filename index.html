@@ -12,8 +12,8 @@
     <title>Ishikaze</title>
   </head>
   <body>
-    <mdui-card id="loadingScreen" >
-        <h3 id="loadingText" style="margin-bottom: 1em;">Initializing...</h3>
+    <mdui-card id="loadingScreen">
+        <h3 id="loadingText" style="margin-bottom: 1em;">Loading...</h3>
         <mdui-linear-progress></mdui-linear-progress>
     </mdui-card>
     
@@ -89,7 +89,7 @@
           </mdui-navigation-bar-item>
         </mdui-navigation-bar> -->
 
-        <mdui-tabs value="music" full-width style="width: 100%; background: transparent;">
+        <mdui-tabs value="music" full-width style="width: 100%; background: transparent; border-radius: 1em 1em 0 0; overflow: hidden;">
           <mdui-tab value="music">
             Music
             <i slot="icon" class="fa-solid fa-music"></i>
@@ -117,18 +117,24 @@
             
             <!-- 2. Recent Tracks -->
             <div class="music-section-title">Recently listened to...</div>
-            <div id="recent-tracks" class="recent-tracks-grid"></div>
+            <div id="recent-tracks" class="recent-tracks-grid">
+              <mdui-circular-progress></mdui-circular-progress>
+            </div>
             
             <!-- 3 & 4. Top Tracks and Top Artists Grid -->
             <div class="top-stats-grid">
               <mdui-card variant="filled" class="stats-card">
                 <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Tracks</div>
-                <div id="top-tracks-list"></div>
+                <div id="top-tracks-list">
+                  <mdui-circular-progress></mdui-circular-progress>
+                </div>
               </mdui-card>
               
               <mdui-card variant="filled" class="stats-card">
                 <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Artists</div>
-                <div id="top-artists-list"></div>
+                <div id="top-artists-list">
+                  <mdui-circular-progress></mdui-circular-progress>
+                </div>
               </mdui-card>
             </div>
 
@@ -161,6 +167,18 @@
           <div id="page-misc" class="page-content">
             <h3>Site last updated on</h3>
             <mdui-list>
+              <mdui-list-item>
+                <h4>2/6/2026</h4> 
+                <span slot="description">
+                  - Improved image fetching for youtube thumbnails <br>
+                  - Now fetching up to 20 last listened to tracks! <br>
+                  - All fetched images in the music section now preloads and validated in the background before being displayed. <br>
+                  - Artist pfp will always be fetched from youtube first<br>
+                  - Improved stying for the music section<br>
+                  - Page's color scheme is now cached<br>
+                  - Fixed cached pfp bug causing color scheme to not update with new discord pfps
+                </span>
+              </mdui-list-item>
               <mdui-list-item>
                 <h4>31/5/2026</h4> 
                 <span slot="description"></span>
