@@ -106,7 +106,7 @@ body {
 .clock-display {
   font-size: 1rem;
   font-weight: 600;
-  font-variant-numeric: tabular-nums; /* Keeps digit widths consistent */
+  font-variant-numeric: tabular-nums; 
 }
 
 p {
@@ -228,7 +228,6 @@ mdui-list {
 }
 
 .video-card {
-  /* display: none; */
   position: relative;
   width: 100%;
   padding: 1em;
@@ -291,22 +290,16 @@ mdui-list {
   min-height: 80px;
 }
 
-/* #latest-videos-track {
-  display: none;
-} */
-
-/* --- New Horizontal Scroll Track Styles --- */
 .horizontal-scroll-track {
   display: flex;
   gap: 1rem;
   overflow-x: scroll;
-  padding-bottom: 0.75rem; /* Room for scrollbar */
+  padding-bottom: 0.75rem; 
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   flex-wrap: wrap;
 }
 
-/* Stylize the scrollbar to match Material UI feel */
 .horizontal-scroll-track::-webkit-scrollbar {
   height: 6px;
 }
@@ -319,7 +312,7 @@ mdui-list {
 }
 
 .video-item-card {
-  flex: 0 0 186px; /* Fixed width for each thumbnail block */
+  flex: 0 0 186px; 
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -355,7 +348,6 @@ mdui-list {
   transition: opacity 0.2s ease;
 }
 
-/* Show play button on hover */
 .video-thumbnail-container:hover .video-thumbnail-overlay {
   opacity: 1;
 }
@@ -366,7 +358,6 @@ mdui-list {
   font-weight: 500;
   line-height: 1.3;
   color: var(--mdui-color-on-surface);
-  /* Truncate text after 2 lines */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -382,10 +373,9 @@ mdui-list {
   gap: 4px;
 }
 
-/* --- Page Transition System --- */
 .page-content {
     width: 100%;
-    box-sizing: border-box; /* Add this */
+    box-sizing: border-box; 
     display: none;
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -399,7 +389,6 @@ mdui-list {
     opacity: 1;
 }
 
-/* --- Music Section Responsive Styling --- */
 .music-section-title {
     font-size: 1.2em;
     font-weight: bold;
@@ -412,6 +401,7 @@ mdui-list {
     gap: 1.25em;
     margin-bottom: 2em;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     padding-bottom: 0.75em; 
     -webkit-overflow-scrolling: touch;
@@ -419,6 +409,10 @@ mdui-list {
     box-sizing: border-box; 
     scrollbar-width: none; 
     -ms-overflow-style: none;
+}
+
+.recent-tracks-grid.is-scrolling > * {
+    pointer-events: none;
 }
 
 .recent-tracks-grid::-webkit-scrollbar {
@@ -432,14 +426,20 @@ mdui-list {
     border-radius: 10px;
 }
 
-.recent-track-card {
-    flex: 0 0 110px; /* Fixed width to ensure uniform look across all screens */
+.recent-tracks-grid mdui-tooltip {
+    flex: 0 0 110px; 
     scroll-snap-align: start;
+    display: block;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.recent-track-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     overflow: hidden;
+    width: 110px; 
 }
 
 .recent-track-card img {
@@ -476,7 +476,7 @@ mdui-list {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5em;
     margin-top: 1.5em;
-    align-items: start; /* Adds this to prevent the cards from stretching vertically */
+    align-items: start; 
 }
 
 .stats-card {
@@ -484,14 +484,13 @@ mdui-list {
     border-radius: 1.5em;
 }
 
-/* --- Top Stats Layout --- */
 .top-stat-item {
     display: flex;
     align-items: center;
     gap: 1em;
     padding: 0.5em;
     border-radius: 12px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, all 0.4s ease;
     margin-bottom: 0.5em;
 }
 
@@ -540,6 +539,57 @@ mdui-list {
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.2;
+}
+
+/* steam */
+.gaming-card {
+    border-radius: 1.5em !important;
+}
+
+.steam-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 1em;
+    width: 100%;
+}
+
+.steam-library-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.steam-library-card:hover {
+    transform: translateY(-4px);
+}
+
+.steam-library-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    border-radius: 0.75em;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin-bottom: 0.5em;
+}
+
+.steam-library-card .game-title {
+    font-weight: 600;
+    font-size: 0.8em;
+    line-height: 1.2;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.steam-library-card .game-playtime {
+    font-size: 0.72em;
+    opacity: 0.6;
+    margin-top: 0.15em;
 }
 
 @media (max-width: 870px) {
