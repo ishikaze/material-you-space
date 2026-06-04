@@ -77,6 +77,30 @@ async function updateLanyardActivity(userId) {
 
     const { discord_user, discord_status, activities } = result.data;
 
+    let foundMusic = result.data.spotify;
+    if (!foundMusic && activities) {
+      foundMusic = activities.find(a => a.type === 2 || a.name === 'Apple Music' || a.name === 'YouTube Music');
+    }
+    if (foundMusic && foundMusic.timestamps && foundMusic.timestamps.start && foundMusic.timestamps.end) {
+      let songName = '';
+      let artistName = '';
+      if (result.data.spotify) {
+        songName = foundMusic.song || '';
+        artistName = foundMusic.artist || '';
+      } else {
+        songName = foundMusic.details || '';
+        artistName = foundMusic.state || '';
+      }
+      window.lanyardMusicTimestamps = {
+        start: foundMusic.timestamps.start,
+        end: foundMusic.timestamps.end,
+        song: songName.toLowerCase().trim(),
+        artist: artistName.toLowerCase().trim()
+      };
+    } else {
+      window.lanyardMusicTimestamps = null;
+    }
+
     const STATUS_COLORS = {
       online: '#23a55a',
       idle: '#f0b232',
@@ -171,7 +195,6 @@ async function updateLanyardActivity(userId) {
             background-color: transparent;
           }
 
-          /* Hover animation triggers only when activities are present */
           #activity-profile-card.has-activity:hover {
             background-color: var(--mdui-color-surface-container-low, #f5f5f5);
             padding-right: 18px;
@@ -184,7 +207,6 @@ async function updateLanyardActivity(userId) {
             cursor: pointer;
           }
 
-          /* Slide & Reveal Animation wrapper */
           #activity-profile-card .details-wrapper {
             max-width: 0;
             opacity: 0;
@@ -292,6 +314,7 @@ async function updateLanyardActivity(userId) {
   } catch (error) {
     console.error('Error rendering Lanyard card:', error);
   } finally {
+    document.getElementById('loadingScreen').style.display = 'none';
     setTimeout(() => {
       updateLanyardActivity(userId);
     }, 5000);

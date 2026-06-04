@@ -71,29 +71,16 @@
       </div>
 
       <div class="verticalContainer" style="width: 100%; min-width: 0;">
-        <!-- <mdui-navigation-bar value="music" label-visibility="selected" style="position: relative; width: 100%; box-shadow: none; margin-bottom: 1em; max-width: 26em; border-radius: 3em;">
-          <mdui-navigation-bar-item value="music">
-            <i slot="icon" class="fa-solid fa-music"></i>
-            <i slot="active-icon" class="fa-solid fa-music"></i>
-            Music
-          </mdui-navigation-bar-item>
-           <mdui-navigation-bar-item value="projects">
-            <i slot="icon" class="fa-solid fa-diagram-project"></i>
-            <i slot="active-icon" class="fa-solid fa-diagram-project"></i>
-            Projects
-          </mdui-navigation-bar-item>
-          <mdui-navigation-bar-item value="misc">
-            <i slot="icon" class="fa-regular fa-circle-dot"></i>
-            <i slot="active-icon" class="fa-solid fa-circle-dot"></i>
-            Misc.
-          </mdui-navigation-bar-item>
-        </mdui-navigation-bar> -->
-
         <mdui-tabs value="music" full-width style="width: 100%; background: transparent; border-radius: 1em 1em 0 0; overflow: hidden;">
           <mdui-tab value="music">
             Music
             <i slot="icon" class="fa-solid fa-music"></i>
             <i slot="active-icon" class="fa-solid fa-music"></i>
+          </mdui-tab>
+          <mdui-tab value="gaming">
+            Gaming
+            <i slot="icon" class="fa-solid fa-gamepad"></i>
+            <i slot="active-icon" class="fa-solid fa-gamepad"></i>
           </mdui-tab>
           <mdui-tab value="projects">
             Stuff
@@ -107,33 +94,44 @@
           </mdui-tab>
         </mdui-tabs>
 
-        <!-- Page Content Wrapper -->
         <div id="pages-container" style="width: 100%; position: relative;">
           
           <!-- MUSIC PAGE -->
           <div id="page-music" class="page-content active fade-in">
-            <!-- 1. Now Playing -->
-            <div id="now-playing" style="margin-bottom: 2em;"></div>
-            
-            <!-- 2. Recent Tracks -->
-            <div class="music-section-title">Recently listened to...</div>
-            <div id="recent-tracks" class="recent-tracks-grid">
-              <mdui-circular-progress></mdui-circular-progress>
+            <div id="now-playing-wrapper" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s ease, margin-bottom 0.5s ease; margin-bottom: 0;">
+                <div style="min-height: 0; overflow: hidden;">
+                    <div id="now-playing" style="opacity: 0; transition: opacity 0.5s ease;"></div>
+                </div>
             </div>
             
-            <!-- 3 & 4. Top Tracks and Top Artists Grid -->
+            <div class="music-section-title">Recently listened to...</div>
+            <div id="recent-tracks" class="recent-tracks-grid">
+              <div class="recent-track-card" id="rt-mock" style="visibility: hidden; flex: 0 0 110px;">
+                  <div style="width: 100%; aspect-ratio: 1; border-radius: 1em; margin-bottom: 0.75em;"></div>
+                  <div class="track-title" style="height: 1.2em; width: 100%;"></div>
+                  <div class="track-artist" style="height: 1em; margin-top: 0.2em; width: 100%;"></div>
+              </div>
+              <div id="rt-spinner" style="display: flex; align-items: center; justify-content: center; width: 110px; flex-shrink: 0;">
+                  <mdui-circular-progress></mdui-circular-progress>
+              </div>
+            </div>
+            
             <div class="top-stats-grid">
               <mdui-card variant="filled" class="stats-card">
                 <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Tracks</div>
                 <div id="top-tracks-list">
-                  <mdui-circular-progress></mdui-circular-progress>
+                  <div id="tt-spinner" style="display: flex; justify-content: center; padding: 2em 0;">
+                    <mdui-circular-progress></mdui-circular-progress>
+                  </div>
                 </div>
               </mdui-card>
               
               <mdui-card variant="filled" class="stats-card">
                 <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Artists</div>
                 <div id="top-artists-list">
-                  <mdui-circular-progress></mdui-circular-progress>
+                  <div id="ta-spinner" style="display: flex; justify-content: center; padding: 2em 0;">
+                    <mdui-circular-progress></mdui-circular-progress>
+                  </div>
                 </div>
               </mdui-card>
             </div>
@@ -141,6 +139,50 @@
             <mdui-button href="https://www.last.fm/user/Ishikaze" target="_blank" full-width variant="tonal" style="margin-top: 1.5em;">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> <strong>See more on Last.fm</strong>
             </mdui-button>
+          </div>
+
+          <div id="page-gaming" class="page-content">
+            
+            <div class="music-section-title" style="margin-bottom: 0.5em;">Current Activity</div>
+            <mdui-card variant="filled" class="gaming-card" style="margin-bottom: 1.5em; padding: 1.25em;">
+              <div id="steam-status-wrapper" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25em;">
+                <div style="display: flex; align-items: center; gap: 1em;">
+                  <div id="steam-pfp-container" style="position: relative; width: 4.5em; height: 4.5em;">
+                    <img id="steam-avatar" src="" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--mdui-color-outline-variant);">
+                    <div id="steam-status-dot" style="position: absolute; bottom: 0; right: 0; width: 1.2em; height: 1.2em; border-radius: 50%; border: 3px solid var(--mdui-color-surface-container); background-color: #747F8D;"></div>
+                  </div>
+                  <div style="text-align: left;">
+                    <h3 id="steam-username" style="margin: 0; font-weight: 700;">Loading...</h3>
+                    <span id="steam-status-text" style="font-size: 0.9em; opacity: 0.7;">Syncing with Steam...</span>
+                  </div>
+                </div>
+                
+                <div id="steam-ingame-container" style="display: none; align-items: center; gap: 1em;">
+                  <img id="steam-ingame-header" src="" style="width: 120px; aspect-ratio: 460/215; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.25);">
+                  <div style="text-align: left;">
+                    <div style="font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.6; font-weight: 700;">In-Game</div>
+                    <div id="steam-ingame-name" style="font-weight: 600; font-size: 1em; line-height: 1.2;">Game Title</div>
+                  </div>
+                </div>
+              </div>
+            </mdui-card>
+
+            <div class="music-section-title" style="margin-bottom: 0.5em;">Top Games (by Playtime)</div>
+            <mdui-card variant="filled" class="gaming-card" style="margin-bottom: 1.5em; padding: 1em;">
+              <div id="steam-top-games" style="display: flex; flex-direction: column; gap: 0.5em;">
+                <div id="steam-top-spinner" style="display: flex; justify-content: center; padding: 1.5em 0;">
+                  <mdui-circular-progress></mdui-circular-progress>
+                </div>
+              </div>
+            </mdui-card>
+
+            <div class="music-section-title" style="margin-bottom: 0.5em;">My Library</div>
+            <div id="steam-library-grid" class="steam-grid-container">
+               <div id="steam-lib-spinner" style="grid-column: 1 / -1; display: flex; justify-content: center; padding: 3em 0;">
+                  <mdui-circular-progress></mdui-circular-progress>
+               </div>
+            </div>
+            
           </div>
 
           <!-- PROJECTS PAGE -->
@@ -167,6 +209,14 @@
           <div id="page-misc" class="page-content">
             <h3>Site last updated on</h3>
             <mdui-list>
+              <mdui-list-item>
+                <h4>4/6/2026</h4> 
+                <span slot="description">
+                  - A lot of stuff are now cached resulting in insane performance boost for fetching stuff <br>
+                  - New animations
+                  - New page for stalking me on steam!
+                </span>
+              </mdui-list-item>
               <mdui-list-item>
                 <h4>2/6/2026</h4> 
                 <span slot="description">
@@ -199,6 +249,7 @@
     <script type="module" src="./scripts/init.js"></script>
     <script type="module" src="./scripts/lanyard.js"></script>
     <script type="module" src="./scripts/time.js"></script>
-    
+    <script type="module" src="./scripts/gaming.js"></script>
+    <script src="./scripts/music.js"></script>
   </body>
 </html>
