@@ -314,7 +314,6 @@ async function updateLanyardActivity(userId) {
   } catch (error) {
     console.error('Error rendering Lanyard card:', error);
   } finally {
-    document.getElementById('loadingScreen').style.display = 'none';
     setTimeout(() => {
       updateLanyardActivity(userId);
     }, 5000);
