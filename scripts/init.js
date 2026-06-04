@@ -68,6 +68,7 @@ getColorFromImage(image).then((color) => {
         fetchLanyardData();
         fetchLastFm();
         fetchLastFmTopData();
+        document.getElementById('loadingScreen').style.display = 'none';
     }
 }).catch(err => {
     snackAlert("Failed to get color from image:", err);
@@ -76,6 +77,7 @@ getColorFromImage(image).then((color) => {
         fetchLanyardData();
         fetchLastFm();
         fetchLastFmTopData();
+        document.getElementById('loadingScreen').style.display = 'none';
     } else {
         document.getElementById('loadingScreen').style.display = 'none';
     }
