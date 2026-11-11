@@ -29,6 +29,24 @@ body {
     position: relative;
     font-family: 'SN Pro', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 2em;
+    background-size: cover;
+    background-position: center;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    z-index: -1; 
+    background-image: var(--bg-image, none); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(150px) brightness(0.25);; 
+    transition: background-image 0.8s ease-in-out;
 }
 
 #loadingScreen {
@@ -55,6 +73,8 @@ body {
     overflow: hidden;
     min-width: 0; 
     width: 100%;
+    box-shadow: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease;
 }
 
 #pages-container {
@@ -198,8 +218,18 @@ mdui-list {
   overflow: hidden;
 }
 
+mdui-tabs::part(container)::after {
+  background-color: rgb(var(--mdui-color-on-surface-variant));
+  opacity: 0.5;
+}
+
 #lastfmGroup {
   width: 100%;
+}
+
+#now-playing {
+  overflow: hidden;
+  background: transparent;
 }
 
 .now-playing-banner {

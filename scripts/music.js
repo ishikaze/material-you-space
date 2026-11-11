@@ -1,3 +1,12 @@
+import 
+    { 
+        snackbar, 
+        getColorFromImage, 
+        setColorScheme, 
+        setTheme
+    } from 'https://unpkg.com/mdui@2/mdui.esm.js';
+
+
 const WORKER_BASE_URL = 'https://delicate-morning-9301.hbjgamerth001.workers.dev'; 
 
 let lastNowPlayingKey = null;
@@ -273,6 +282,22 @@ async function fetchLastFm() {
                     nowPlayingContainer.innerHTML = html;
                     nowPlayingContainer.style.opacity = '1';
 
+                    const img = new Image();
+
+                    img.crossOrigin = "anonymous"; 
+                    img.src = finalArt;
+
+                    getColorFromImage(img).then((color) => {
+                        // setColorScheme(color, {
+                        // target: '#now-playing'
+                        // })
+                        setColorScheme(color)
+                        console.log(finalArt)
+                        document.body.style.transition = 'background-image 0.5s ease-in-out';
+
+                        document.body.style.setProperty('--bg-image', `url("${finalArt}")`);
+                    })
+
                     clearInterval(progressInterval);
                     
                     const updateProgress = () => {
@@ -333,6 +358,13 @@ async function fetchLastFm() {
                     nowPlayingWrapper.style.marginBottom = '0';
                     setTimeout(() => nowPlayingContainer.innerHTML = '', 500); 
                 }, 500); 
+
+                const cachedColor = localStorage.getItem('cachedPfpColor');
+                if (cachedColor) {
+                    setColorScheme(cachedColor);
+                }
+                
+                document.body.style.setProperty('--bg-image', 'none'); 
             }
             
             lastNowPlayingKey = currentNowPlayingKey;
@@ -599,3 +631,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+export { fetchLastFm, fetchLastFmTopData  }

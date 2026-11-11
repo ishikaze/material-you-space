@@ -6,6 +6,8 @@ import
         setTheme
     } from 'https://unpkg.com/mdui@2/mdui.esm.js';
 
+import { fetchLastFm, fetchLastFmTopData  } from './music.js';
+
 // snackAlert('init')
 setTheme('dark')
 

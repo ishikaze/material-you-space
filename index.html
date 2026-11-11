@@ -17,7 +17,7 @@
         <mdui-linear-progress></mdui-linear-progress>
     </mdui-card>
     
-    <mdui-card variant="filled" class="contentGroup">
+    <mdui-card class="contentGroup" variant="filled">
       <div class="verticalContainer" style="min-width: 368px;">
         <div class="pfpGroup">
             <div id="activity"></div>
@@ -55,8 +55,8 @@
           <mdui-tooltip variant="rich" placement="bottom">
             <mdui-button-icon variant="standard" href="mailto:contact@ishikaze.space" target="_blank"><i class="fa-solid fa-envelope"></i></mdui-button-icon>
             <div slot="headline">Send me an email</div>
-            <div slot="content">The button above is a mailto button, you can also copy my email below!</div>
-            <mdui-text-field label="Email" slot="action" type="text" readonly value="contact@ishikaze.space" id="emailInput" onmouseup="copyEmail()"></mdui-text-field>
+            <div slot="content">The button above is a mailto button, you can also copy my email below!<br>(Slow response time)</div>
+            <mdui-text-field label="Email" slot="action" type="text" readonly value="ishikaze.k@gmail.com" id="emailInput" onmouseup="copyEmail()"></mdui-text-field>
             <mdui-button slot="action" variant="text" id="emailCopyBtn">Copy</mdui-button>
           </mdui-tooltip>
           <mdui-tooltip variant="rich" placement="bottom" content="My YouTube Channel">
@@ -84,7 +84,7 @@
           </mdui-tab>
           <mdui-tab value="projects">
             Stuff
-            <i slot="icon" class="fa-solid fa-diagram-project"></i>
+            <i slot="icon" class="fa-solid fa-diagram-project" id="stuffbutton"></i>
             <i slot="active-icon" class="fa-solid fa-diagram-project"></i>
           </mdui-tab>
           <mdui-tab value="misc">
@@ -117,7 +117,7 @@
             </div>
             
             <div class="top-stats-grid">
-              <mdui-card variant="filled" class="stats-card">
+              <mdui-card variant="elevated" class="stats-card">
                 <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Tracks</div>
                 <div id="top-tracks-list">
                   <div id="tt-spinner" style="display: flex; justify-content: center; padding: 2em 0;">
@@ -126,7 +126,7 @@
                 </div>
               </mdui-card>
               
-              <mdui-card variant="filled" class="stats-card">
+              <mdui-card variant="elevated" class="stats-card">
                 <div class="music-section-title" style="margin-bottom: 0.5em; font-size: 1.1em;">Top 5 Artists</div>
                 <div id="top-artists-list">
                   <div id="ta-spinner" style="display: flex; justify-content: center; padding: 2em 0;">
@@ -189,6 +189,10 @@
           <div id="page-projects" class="page-content">
             <h1 style="margin-bottom: 0.5em; text-align: left;">My Stuff</h1>
             <mdui-list>
+              <mdui-list-item href="https://kazejam.buildfighters.works/" target="_blank">
+                <h3>KazeJam! <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
+                <span slot="description">Listen to music together in real time with no ads across many music platforms!</span>
+              </mdui-list-item>
               <mdui-list-item href="https://github.com/ishikaze/" target="_blank">
                 <h3>My GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></h3> 
                 <span slot="description">Check out my GitHub to see every project I worked or and am working on!</span>
@@ -209,6 +213,12 @@
           <div id="page-misc" class="page-content">
             <h3>Site last updated on</h3>
             <mdui-list>
+              <mdui-list-item>
+                <h4>11/11/2026</h4> 
+                <span slot="description">
+                  - Updated and added up to date infomation
+                </span>
+              </mdui-list-item>
               <mdui-list-item>
                 <h4>4/6/2026</h4> 
                 <span slot="description">
@@ -246,10 +256,22 @@
       </div>
     </mdui-card>
 
+    <script type="module" src="./scripts/music.js"></script>
     <script type="module" src="./scripts/init.js"></script>
     <script type="module" src="./scripts/lanyard.js"></script>
     <script type="module" src="./scripts/time.js"></script>
     <script type="module" src="./scripts/gaming.js"></script>
-    <script src="./scripts/music.js"></script>
+    <script>
+      function bruh() {
+        document.getElementById('stuffbutton').click();
+      }
+
+      if (document.readyState === 'complete') {
+        bruh();
+      } else {
+        window.addEventListener('load', bruh);
+      }
+    </script>
+    
   </body>
 </html>
